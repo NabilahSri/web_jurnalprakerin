@@ -138,28 +138,21 @@
         <!-- Modal Tambah-->
         <div id="tambahModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="myModalLabel">Tambah Data Administrator</h4>
                         <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="/users/administrator/create" method="post" enctype="multipart/form-data" novalidate>
+                    <form action="/users/administrator/create" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="" class="form-label">Username</label>
                                         <input type="text" name="username" id=""
-                                            placeholder="Masukan username" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="" class="form-label">Password</label>
-                                        <input type="password" name="password" id=""
-                                            placeholder="Masukan password" class="form-control">
+                                            placeholder="Masukan username" class="form-control" required>
                                     </div>
                                 </div>
                             </div>

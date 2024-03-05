@@ -20,8 +20,8 @@ class AbsensiController extends Controller
             $data['siswa'] = Siswa::with('kelas')->get();
             $data['absensi'] = Absensi::with('siswa')->get();
         }else{
-            $data['user'] = User::where('id', Auth::user()->id)->get();
-            $userId = $data['user'][0]->id;
+            $data['user'] = User::where('id', Auth::user()->id)->first();
+            $userId = $data['user']->id;
 
             $data['guru'] = Guru::where('id_user', $userId)->first();
             $idguru = $data['guru']->id;
@@ -39,14 +39,6 @@ class AbsensiController extends Controller
                         $query->where('id_guru', $idguru);
                     })
                     ->get();
-                    // Add null check before accessing the `name` property
-            // $data['absensi'] = $data['absensi']->map(function ($absensi) {
-            //     $siswa = $absensi->siswa ?? new Siswa; // Initialize the $siswa object here
-            //     $siswa->name = $siswa->name ?? 'N/A'; // Add null check here
-            //     $kelas = $absensi->kelas ?? new Kelas;
-            //     $kelas->kelas = $kelas->kelas ?? 'N/A';
-            //     return $absensi;
-            // });
 
         }
         return view('pages.kehadiran',$data);

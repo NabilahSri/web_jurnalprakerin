@@ -107,7 +107,7 @@
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <form action="/users/pemonitoring/edit/{{ $item->id }}"
-                                                        method="post" enctype="multipart/form-data" novalidate>
+                                                        method="post" enctype="multipart/form-data">
                                                         @csrf
                                                         <div class="modal-body">
                                                             <div class="row">
@@ -117,7 +117,7 @@
                                                                             class="form-label">Nama</label>
                                                                         <input type="text" name="name" id=""
                                                                             placeholder="Masukan nama" class="form-control"
-                                                                            value="{{ $item->name }}">
+                                                                            value="{{ $item->name }}" required>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -126,34 +126,27 @@
                                                                             class="form-label">Email</label>
                                                                         <input type="email" name="email" id=""
                                                                             placeholder="Masukan email" class="form-control"
-                                                                            value="{{ $item->email }}">
+                                                                            value="{{ $item->email }}" required>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
                                                                         <label for=""
                                                                             class="form-label">Username</label>
-                                                                        <select class="form-control select2"
-                                                                            name="id_user" style="width: 100%">
-                                                                            <option selected value="{{ $item->id }}">
-                                                                                {{ $item->user->username }}
-                                                                            </option>
-                                                                            @foreach ($user as $data)
-                                                                                <option value="{{ $data->id }}">
-                                                                                    {{ $item->username }}</option>
-                                                                            @endforeach
-                                                                        </select>
+                                                                        <input type="text" name="username"
+                                                                            id="" placeholder="Masukan username"
+                                                                            class="form-control"
+                                                                            value="{{ $item->user->username }}" required>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div class="form-group">
-                                                                        <label for="" class="form-label">No
-                                                                            Telepon</label>
-                                                                        <input type="number" name="telp"
+                                                                        <label for=""
+                                                                            class="form-label">Password</label>
+                                                                        <input type="password" name="password"
                                                                             id=""
-                                                                            placeholder="Masukan no telepon"
-                                                                            class="form-control"
-                                                                            value="{{ $item->telp }}">
+                                                                            placeholder="Masukan password jika ingin di ubah"
+                                                                            class="form-control">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -164,11 +157,22 @@
                                                                             id="" class="form-control">
                                                                     </div>
                                                                 </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="" class="form-label">No
+                                                                            Telepon</label>
+                                                                        <input type="number" name="telp"
+                                                                            id=""
+                                                                            placeholder="Masukan no telepon"
+                                                                            class="form-control"
+                                                                            value="{{ $item->telp }}" required>
+                                                                    </div>
+                                                                </div>
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label for=""
                                                                             class="form-label">Alamat</label>
-                                                                        <textarea name="alamat" id="" cols="30" rows="2" class="form-control">{{ $item->alamat }}</textarea>
+                                                                        <textarea name="alamat" id="" cols="30" rows="2" class="form-control" required>{{ $item->alamat }}</textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -204,7 +208,7 @@
                         <h4 class="modal-title" id="myModalLabel">Tambah Data Pemonitor</h4>
                         <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="/users/pemonitoring/create" method="post" enctype="multipart/form-data" novalidate>
+                    <form action="/users/pemonitoring/create" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
                             <div class="row">
@@ -212,35 +216,31 @@
                                     <div class="form-group">
                                         <label for="" class="form-label">Nama</label>
                                         <input type="text" name="name" id="" placeholder="Masukan nama"
-                                            class="form-control" validation>
+                                            class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="" class="form-label">Email</label>
                                         <input type="email" name="email" id="" placeholder="Masukan email"
-                                            class="form-control">
+                                            class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="" class="form-label">Username</label>
-                                        <select class="form-control select2" name="id_user" style="width: 100%">
-                                            <option selected="selected">Pilih Username</option>
-                                            @foreach ($user as $data)
-                                                <option value="{{ $data->id }}">{{ $data->username }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" name="username" id=""
+                                            placeholder="Masukan username" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="" class="form-label">No Telepon</label>
                                         <input type="number" name="telp" id=""
-                                            placeholder="Masukan no telepon" class="form-control">
+                                            placeholder="Masukan no telepon" class="form-control" required>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="" class="form-label">Foto</label>
                                         <input type="file" name="foto" id="" class="form-control">
@@ -249,7 +249,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="" class="form-label">Alamat</label>
-                                        <textarea name="alamat" id="" cols="30" rows="2" class="form-control"></textarea>
+                                        <textarea name="alamat" id="" cols="30" rows="2" class="form-control" required></textarea>
                                     </div>
                                 </div>
                             </div>

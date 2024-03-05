@@ -19,7 +19,6 @@ return new class extends Migration
             $table->enum('status',['hadir','sakit','alfa','izin']);
             $table->string('catatan')->nullable();
             $table->string('bukti')->nullable();
-            $table->string('alamat')->nullable();
             $table->unsignedBigInteger('id_siswa');
             $table->timestamps();
             $table->foreign('id_siswa')->references('id')->on('siswas')->onDelete('no action')->onUpdate('no action');

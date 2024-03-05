@@ -101,7 +101,7 @@
                                                             aria-label="Close"></button>
                                                     </div>
                                                     <form action="/banner/edit/{{ $item->id }}" method="post"
-                                                        enctype="multipart/form-data" novalidate>
+                                                        enctype="multipart/form-data">
                                                         @csrf
                                                         <div class="modal-body">
                                                             <div class="row">
@@ -111,7 +111,7 @@
                                                                             class="form-label">Nama</label>
                                                                         <input type="text" name="name" id=""
                                                                             placeholder="Masukan nama" class="form-control"
-                                                                            value="{{ $item->name }}">
+                                                                            value="{{ $item->name }}" required>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -119,14 +119,14 @@
                                                                         <label for=""
                                                                             class="form-label">Gambar</label>
                                                                         <input type="file" name="gambar" id=""
-                                                                            class="form-control">
+                                                                            class="form-control" required>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label for=""
                                                                             class="form-label">Deskripsi</label>
-                                                                        <textarea name="deskripsi" id="" cols="30" rows="2" class="form-control">{{ $item->deskripsi }}</textarea>
+                                                                        <textarea name="deskripsi" id="" cols="30" rows="2" class="form-control" required>{{ $item->deskripsi }}</textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -162,7 +162,7 @@
                         <h4 class="modal-title" id="myModalLabel">Tambah Data Banner</h4>
                         <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="/banner/create" method="post" enctype="multipart/form-data" novalidate>
+                    <form action="/banner/create" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
                             <div class="row">
@@ -170,19 +170,20 @@
                                     <div class="form-group">
                                         <label for="" class="form-label">Nama</label>
                                         <input type="text" name="name" id="" placeholder="Masukan nama"
-                                            class="form-control">
+                                            class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="" class="form-label">Gambar</label>
-                                        <input type="file" name="gambar" id="" class="form-control">
+                                        <input type="file" name="gambar" id="" class="form-control"
+                                            required>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="" class="form-label">Deskripsi</label>
-                                        <textarea name="deskripsi" id="" cols="30" rows="2" class="form-control"></textarea>
+                                        <textarea name="deskripsi" id="" cols="30" rows="2" class="form-control" required></textarea>
                                     </div>
                                 </div>
                             </div>

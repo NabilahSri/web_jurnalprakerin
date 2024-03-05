@@ -16,13 +16,12 @@ class KelasController extends Controller
         Kelas::create([
             'kelas' => $request->kelas,
         ]);
-
-        return redirect('/kelas');
+        return redirect('/kelas')->with('success','Data berhasil disimpan');
     }
 
     public function delete(Request $req){
         Kelas::where('id', $req->id)->delete();
-        return redirect('/kelas');
+        return redirect('/kelas')->with('success','Data berhasil dihapus');
     }
 
     public function edit(Request $request, $id)
@@ -33,6 +32,6 @@ class KelasController extends Controller
 
         Kelas::where('id', $id)->update($userData);
 
-        return redirect('/kelas');
+        return redirect('/kelas')->with('success','Data berhasil diupdate');
     }
 }

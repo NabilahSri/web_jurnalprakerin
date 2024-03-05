@@ -17,7 +17,11 @@ return new class extends Migration
             $table->string('foto')->nullable();
             $table->string('durasi');
             $table->unsignedBigInteger('id_absensi');
+            $table->unsignedBigInteger('id_siswa');
+            $table->unsignedBigInteger('id_kelas');
             $table->foreign('id_absensi')->references('id')->on('absensis')->onDelete('no action')->onUpdate('no action');
+            $table->foreign('id_siswa')->references('id')->on('siswas')->onDelete('no action')->onUpdate('no action');
+            $table->foreign('id_kelas')->references('id')->on('kelas')->onDelete('no action')->onUpdate('no action');
             $table->timestamps();
         });
     }

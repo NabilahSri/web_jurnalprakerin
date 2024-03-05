@@ -12,7 +12,7 @@ class LoginController extends Controller
 
         if (Auth::attempt($credential)) {
             if (auth()->user()->level == 'admin' || auth()->user()->level == 'pemonitor') {
-                return redirect('/dashboard');
+                return redirect('/dashboard')->with('success','Anda berhasil melakukan login!');
             }else{
                  return back()->with('error', 'Anda tidak memiliki hak akses!');
             }
@@ -23,6 +23,6 @@ class LoginController extends Controller
 
     public function logout(){
         Auth::logout();
-        return redirect('/');
+        return redirect('/')->with('success','Anda berhasil melakukan log out!');
     }
 }

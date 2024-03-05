@@ -20,14 +20,7 @@
         <link rel="stylesheet" href="asset/css/style.css">
         <link rel="stylesheet" href="asset/css/skin_color.css">
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                @if (session('error'))
-                    // Display alert for failed login attempts
-                    alert("{{ session('error') }}");
-                @endif
-            });
-        </script>
+
 
     </head>
 
@@ -82,6 +75,8 @@
         <script src="asset/js/vendors.min.js"></script>
         <script src="assetjs/pages/chat-popup.js"></script>
         <script src="../assets/icons/feather-icons/feather.min.js"></script>
+
+        @include('sweetalert::alert')
 
     </body>
 

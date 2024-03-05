@@ -36,9 +36,11 @@
                                         <th>Nama Industri</th>
                                         <th>Owner</th>
                                         <th>Alamat</th>
+                                        <th>Latitude</th>
+                                        <th>Longitude</th>
                                         <th>No Telepon</th>
                                         <th>Email</th>
-                                        <th class="text-center">Aksi</th>
+                                        <th class="text-center" style="width: 100px">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -48,6 +50,8 @@
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->owner }}</td>
                                             <td>{{ $item->alamat }}</td>
+                                            <td>{{ $item->latitude }}</td>
+                                            <td>{{ $item->longitude }}</td>
                                             <td>{{ $item->telp }}</td>
                                             <td>{{ $item->email }}</td>
                                             <td class="text-center">
@@ -94,8 +98,7 @@
                                                         <button class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
-                                                    <form action="/industri/edit/{{ $item->id }}" method="post"
-                                                        novalidate>
+                                                    <form action="/industri/edit/{{ $item->id }}" method="post">
                                                         @csrf
                                                         <div class="modal-body">
                                                             <div class="row">
@@ -106,7 +109,7 @@
                                                                         <input type="text" name="name" id=""
                                                                             placeholder="Masukan nama industri"
                                                                             class="form-control"
-                                                                            value="{{ $item->name }}">
+                                                                            value="{{ $item->name }}" required>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -116,14 +119,34 @@
                                                                         <input type="text" name="owner" id=""
                                                                             placeholder="Masukan nama owner"
                                                                             class="form-control"
-                                                                            value="{{ $item->owner }}">
+                                                                            value="{{ $item->owner }}" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for=""
+                                                                            class="form-label">Latitude</label>
+                                                                        <input type="text" name="latitude"
+                                                                            id="" placeholder="Masukan latitude"
+                                                                            class="form-control"
+                                                                            value="{{ $item->latitude }}" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for=""
+                                                                            class="form-label">Longitude</label>
+                                                                        <input type="text" name="longitude"
+                                                                            id="" placeholder="Masukan longitude"
+                                                                            class="form-control"
+                                                                            value="{{ $item->longitude }}" required>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label for=""
                                                                             class="form-label">Alamat</label>
-                                                                        <textarea name="alamat" id="" cols="30" rows="2" class="form-control">{{ $item->alamat }}</textarea>
+                                                                        <textarea name="alamat" id="" cols="30" rows="2" class="form-control" required>{{ $item->alamat }}</textarea>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -134,7 +157,7 @@
                                                                             id=""
                                                                             placeholder="Masukan no telepon"
                                                                             class="form-control"
-                                                                            value="{{ $item->telp }}">
+                                                                            value="{{ $item->telp }}" required>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -144,7 +167,7 @@
                                                                         <input type="email" name="email"
                                                                             id="" placeholder="Masukan email"
                                                                             class="form-control"
-                                                                            value="{{ $item->email }}">
+                                                                            value="{{ $item->email }}" required>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -180,7 +203,7 @@
                         <h4 class="modal-title" id="myModalLabel">Tambah Data Industri</h4>
                         <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="/industri/create" method="post" novalidate>
+                    <form action="/industri/create" method="post">
                         @csrf
                         <div class="modal-body">
                             <div class="row">
@@ -189,20 +212,34 @@
                                         <label for="" class="form-label">Nama
                                             Industri</label>
                                         <input type="text" name="name" id=""
-                                            placeholder="Masukan nama industri" class="form-control">
+                                            placeholder="Masukan nama industri" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="" class="form-label">Owner</label>
                                         <input type="text" name="owner" id=""
-                                            placeholder="Masukan nama owner" class="form-control">
+                                            placeholder="Masukan nama owner" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="" class="form-label">Latitude</label>
+                                        <input type="text" name="latitude" id=""
+                                            placeholder="Masukan latitude" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="" class="form-label">Longitude</label>
+                                        <input type="text" name="longitude" id=""
+                                            placeholder="Masukan longitude" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="" class="form-label">Alamat</label>
-                                        <textarea name="alamat" id="" cols="30" rows="2" class="form-control"></textarea>
+                                        <textarea name="alamat" id="" cols="30" rows="2" class="form-control" required></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -210,14 +247,14 @@
                                         <label for="" class="form-label">No
                                             Telepon</label>
                                         <input type="number" name="telp" id=""
-                                            placeholder="Masukan no telepon" class="form-control">
+                                            placeholder="Masukan no telepon" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="" class="form-label">Email</label>
                                         <input type="email" name="email" id="" placeholder="Masukan email"
-                                            class="form-control">
+                                            class="form-control" required>
                                     </div>
                                 </div>
                             </div>

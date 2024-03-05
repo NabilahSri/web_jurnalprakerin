@@ -10,6 +10,7 @@ use App\Models\Siswa;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class MonitoringController extends Controller
 {
@@ -35,7 +36,14 @@ class MonitoringController extends Controller
 
 
     public function create(Request $request){
-
+        $validator = Validator::make($request->all(),[
+            'id_guru' => 'Required',
+            'id_industri' => 'Required',
+            'id_siswa' => 'Required',
+        ]);
+        if ($validator->fails()) {
+            return back()->with('error',$validator->messages()->all()[0])->withInput();
+        }
         foreach ($request->id_siswa as $id_siswa) {
             Monitoring::create([
                 'id_guru' => $request->id_guru,
@@ -44,12 +52,12 @@ class MonitoringController extends Controller
             ]);
         }
 
-        return redirect('/monitoring');
+        return redirect('/monitoring')->with('success','Data berhasil disimpan');
     }
 
-    public function delete(Request $req){
-        Monitoring::where('id_industri', $req->id_industri)->delete();
-        return redirect('/monitoring');
+    public function delete(Request $req,$id){
+        Monitoring::where('id_industri', $id)->delete();
+        return redirect('/monitoring')->with('success','Data berhasil dihapus');
     }
 
     public function edit(Request $request, $id)
@@ -64,6 +72,6 @@ class MonitoringController extends Controller
             ]);
         }
 
-        return redirect('/monitoring');
+        return redirect('/monitoring')->with('success','Data berhasil diupdate');
     }
 }

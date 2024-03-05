@@ -78,7 +78,7 @@
                                         {{-- Modal Edit --}}
                                         <div id="editModal{{ $item->id }}" class="modal fade" tabindex="-1"
                                             role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-lg">
+                                            <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h4 class="modal-title" id="myModalLabel">Edit Data Kelas
@@ -86,7 +86,7 @@
                                                         <button class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                     </div>
-                                                    <form action="kelas/edit/{{ $item->id }}" method="post" novalidate>
+                                                    <form action="kelas/edit/{{ $item->id }}" method="post">
                                                         @csrf
                                                         <div class="modal-body">
                                                             <div class="row">
@@ -96,7 +96,7 @@
                                                                             class="form-label">kelas</label>
                                                                         <input type="text" name="kelas" id=""
                                                                             placeholder="Masukan kelas" class="form-control"
-                                                                            value="{{ $item->kelas }}">
+                                                                            value="{{ $item->kelas }}" required>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -125,13 +125,13 @@
         <!-- Modal Tambah-->
         <div id="tambahModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
             aria-hidden="true">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="myModalLabel">Tambah Data kelas</h4>
                         <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="/kelas/create" method="post" novalidate>
+                    <form action="/kelas/create" method="post">
                         @csrf
                         <div class="modal-body">
                             <div class="row">
@@ -139,7 +139,7 @@
                                     <div class="form-group">
                                         <label for="" class="form-label">kelas</label>
                                         <input type="text" name="kelas" id="" placeholder="Masukan kelas"
-                                            class="form-control">
+                                            class="form-control" required>
                                     </div>
                                 </div>
                             </div>

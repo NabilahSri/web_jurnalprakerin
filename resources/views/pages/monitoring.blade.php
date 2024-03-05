@@ -1,5 +1,6 @@
 @php
     use App\Models\Monitoring;
+    use App\Models\Siswa;
 @endphp
 @extends('component.template')
 @section('content')
@@ -50,7 +51,7 @@
                                                 <td>{{ $item->industri->name }}</td>
                                                 <td class="text-center">
                                                     <a href="#" class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                                        data-bs-target="#hapusModal{{ $item->id }}"><i
+                                                        data-bs-target="#hapusModal{{ $item->id_industri }}"><i
                                                             class="fa fa-trash-o"></i></a>
                                                     <a href="#" class="btn btn-sm btn-success"><i class="fa fa-edit"
                                                             data-bs-toggle="modal"
@@ -62,12 +63,13 @@
                                                 </td>
                                             </tr>
                                             {{-- Modal Hapus --}}
-                                            <div class="modal center-modal fade" id="hapusModal{{ $item->id }}"
+                                            <div class="modal center-modal fade" id="hapusModal{{ $item->id_industri }}"
                                                 tabindex="-1">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title">Konfirmasi Penghapusan</h5>
+                                                            <h5 class="modal-title">Konfirmasi
+                                                                Penghapusan{{ $item->id_industri }}</h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                                 aria-label="Close"></button>
                                                         </div>
@@ -78,7 +80,7 @@
                                                             class="modal-footer modal-footer-uniform d-flex justify-content-between">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Batal</button>
-                                                            <a href="/monitoring/delete/{{ $item->id }}"
+                                                            <a href="/monitoring/delete/{{ $item->id_industri }}"
                                                                 class="btn btn-primary">Hapus</a>
                                                         </div>
                                                     </div>
@@ -98,7 +100,7 @@
                                                                 aria-label="Close"></button>
                                                         </div>
                                                         <form action="/monitoring/edit/{{ $item->id_industri }}"
-                                                            method="post" novalidate>
+                                                            method="post">
                                                             @csrf
                                                             <div class="modal-body">
                                                                 <div class="row">
@@ -108,13 +110,9 @@
                                                                                 class="form-label">Guru/Pemonitor</label>
                                                                             <select name="id_guru" id=""
                                                                                 class="form-control select2"
-                                                                                style="width: 100%">
+                                                                                style="width: 100%" required>
                                                                                 <option value="{{ $item->guru->id }}">
                                                                                     {{ $item->guru->name }}</option>
-                                                                                {{-- @foreach ($guru as $data)
-                                                                                    <option value="{{ $data->id }}">
-                                                                                        {{ $data->name }}</option>
-                                                                                @endforeach --}}
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -124,16 +122,26 @@
                                                                                 class="form-label">Industri</label>
                                                                             <select name="id_industri" id=""
                                                                                 class="form-control select2"
-                                                                                style="width: 100%">
+                                                                                style="width: 100%" required>
                                                                                 <option value="{{ $item->industri->id }}">
                                                                                     {{ $item->industri->name }}</option>
-                                                                                {{-- @foreach ($industri as $data)
-                                                                                <option value="{{ $data->id }}">
-                                                                                    {{ $data->name }}</option>
-                                                                            @endforeach --}}
+                                                                                @foreach ($industri as $data)
+                                                                                    <option value="{{ $data->id }}">
+                                                                                        {{ $data->name }}
+                                                                                    </option>
+                                                                                @endforeach
                                                                             </select>
                                                                         </div>
                                                                     </div>
+                                                                    @php
+                                                                        $siswa1 = Siswa::all();
+                                                                        $monitoring1 = Monitoring::where(
+                                                                            'id_industri',
+                                                                            $item->id_industri,
+                                                                        )
+                                                                            ->with('siswa')
+                                                                            ->get();
+                                                                    @endphp
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
                                                                             <label class="form-label">Nama Siswa</label>
@@ -141,11 +149,20 @@
                                                                                 class="form-control select2"
                                                                                 multiple="multiple"
                                                                                 data-placeholder="Pilih Siswa"
-                                                                                style="width: 100%;">
+                                                                                style="width: 100%;" required>
+                                                                                @foreach ($monitoring1 as $siswaa)
+                                                                                    <option
+                                                                                        value="{{ $siswaa->siswa->id }}"
+                                                                                        selected>
+                                                                                        {{ $siswaa->siswa->name }} -
+                                                                                        {{ $siswaa->siswa->kelas->kelas }}
+                                                                                    </option>
+                                                                                @endforeach
                                                                                 @foreach ($siswa as $data)
                                                                                     <option value="{{ $data->id }}">
                                                                                         {{ $data->name }} -
-                                                                                        {{ $data->kelas->kelas }}</option>
+                                                                                        {{ $data->kelas->kelas }}
+                                                                                    </option>
                                                                                 @endforeach
                                                                             </select>
                                                                         </div>
@@ -182,7 +199,7 @@
                             <h4 class="modal-title" id="myModalLabel">Tambah Data Monitoring kelompok Prakerin</h4>
                             <button class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form action="/monitoring/create" method="post" novalidate>
+                        <form action="/monitoring/create" method="post">
                             @csrf
                             <div class="modal-body">
                                 <div class="row">
@@ -190,7 +207,7 @@
                                         <div class="form-group">
                                             <label for="" class="form-label">Guru/Pemonitor</label>
                                             <select name="id_guru" id="" class="form-control select2"
-                                                style="width: 100%">
+                                                style="width: 100%" required>
                                                 <option selected="selected">Pilih guru/pemonitor</option>
                                                 @foreach ($guru as $data)
                                                     <option value="{{ $data->id }}">
@@ -203,7 +220,7 @@
                                         <div class="form-group">
                                             <label for="" class="form-label">Industri</label>
                                             <select name="id_industri" id="" class="form-control select2"
-                                                style="width: 100%">
+                                                style="width: 100%" required>
                                                 <option selected="selected">Pilih industri</option>
                                                 @foreach ($industri as $data)
                                                     <option value="{{ $data->id }}">
@@ -216,7 +233,7 @@
                                         <div class="form-group">
                                             <label class="form-label">Nama Siswa</label>
                                             <select name="id_siswa[]" class="form-control select2" multiple="multiple"
-                                                data-placeholder="Pilih Siswa" style="width: 100%;">
+                                                data-placeholder="Pilih Siswa" style="width: 100%;" required>
                                                 @foreach ($siswa as $data)
                                                     <option value="{{ $data->id }}">{{ $data->name }} -
                                                         {{ $data->kelas->kelas }}</option>
@@ -293,8 +310,6 @@
                     <div class="box">
                         <div class="box-header with-border d-flex justify-content-between align-items-center">
                             <h3 class="box-title">Data Monitoring Kelompok Prakerin</h3>
-                            <a href="" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#tambahModal">Tambah</a>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">

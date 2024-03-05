@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->enum('level',['admin','siswa','pemonitor']);
+            $table->text('login_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -14,4 +14,9 @@ class Kegiatan extends Model
     public function absensi(){
         return $this->belongsTo(Absensi::class, 'id_absensi');
     }
+
+    public function siswa()
+{
+    return $this->belongsTo(Siswa::class,'id_siswa');
+}
 }

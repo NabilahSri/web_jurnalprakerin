@@ -37,6 +37,7 @@
                                         <th>Kelas</th>
                                         <th>Jam Masuk</th>
                                         <th>Jam Pulang</th>
+                                        <th>Total Jam</th>
                                         <th>Status</th>
                                         <th class="text-center">Aksi</th>
                                     </tr>
@@ -58,6 +59,25 @@
                                             <td>
                                                 @if ($item->jam_pulang)
                                                     {{ $item->jam_pulang }}
+                                                @else
+                                                    -
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($item->jam_masuk && $item->jam_pulang)
+                                                    <?php
+                                                    // Hitung perbedaan waktu antara jam masuk dan jam pulang
+                                                    $jamMasuk = strtotime($item->jam_masuk);
+                                                    $jamPulang = strtotime($item->jam_pulang);
+                                                    $selisihWaktu = $jamPulang - $jamMasuk;
+
+                                                    // Konversi selisih waktu ke dalam format jam:menit
+                                                    $totalJam = floor($selisihWaktu / 3600); // 1 jam = 3600 detik
+                                                    $totalMenit = floor(($selisihWaktu % 3600) / 60);
+
+                                                    // Tampilkan total jam
+                                                    echo $totalJam . ' jam ' . $totalMenit . ' menit';
+                                                    ?>
                                                 @else
                                                     -
                                                 @endif
@@ -92,7 +112,7 @@
             </div>
         </div>
         @foreach ($absensi as $key => $item)
-            {{-- Modal Kwgiatan --}}
+            {{-- Modal Kegiatan --}}
             <div class="modal center-modal fade" id="kegiatanModal{{ $item->id }}" tabindex="-1">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -169,8 +189,12 @@
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="bukti" class="form-label">Bukti</label>
-                                        <img src="https://cdn.pixabay.com/photo/2019/11/10/17/12/dice-games-4616334_1280.jpg"
-                                            alt="bukti" style="border-radius: 2%;" class="img-fluid">
+                                        @if ($item->bukti)
+                                            <img src="{{ asset('storage/' . $item->bukti) }}" alt="bukti"
+                                                style="border-radius: 2%; height:200px;" class="img-fluid">
+                                        @else
+                                            <span class="text-danger">Tidak Ada Bukti</span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

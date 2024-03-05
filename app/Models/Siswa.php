@@ -23,4 +23,13 @@ class Siswa extends Model
         return $this->hasMany(Monitoring::class,'id_siswa');
     }
 
+    public function Absensi(){
+        return $this->hasMany(Absensi::class,'id_siswa');
+    }
+
+    public function kegiatan()
+{
+    return $this->hasMany(Kegiatan::class,'id_siswa');
+}
+
 }

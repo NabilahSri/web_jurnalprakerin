@@ -69,7 +69,9 @@ class DatabaseSeeder extends Seeder
         Industri::create([
             'name' =>'PT. Makerindo Prima Solusi',
             'owner' => 'Bpk. ',
-            'alamat' => 'Bandung',
+            'alamat' => 'Jl. Garut - Tasikmalaya, Cikunten, Kec. Singaparna, Kabupaten Tasikmalaya, Jawa Barat 46414',
+            'latitude' => '-7.360720567177067',
+            'longitude' => '108.10579888093392',
             'telp' => '098765439993',
             'email' => 'makerindo@gmail.com',
         ]);
@@ -80,26 +82,8 @@ class DatabaseSeeder extends Seeder
             'id_siswa' => '1'
         ]);
 
-        Absensi::create([
-            'tanggal' => Carbon::now('Asia/Jakarta'),
-            'jam_masuk' => '07:00:00',
-            'jam_masuk' => '17:00:00',
-            'status' => 'hadir',
-            'alamat' => 'Bandung',
-            'id_siswa' => '1'
-        ]);
 
-        Kegiatan::create([
-            'deskripsi' => 'Membuat halaman login',
-            'durasi' => '60',
-            'id_absensi' => '1'
-        ]);
 
-        Kegiatan::create([
-            'deskripsi' => 'Membuat halaman utama',
-            'durasi' => '240',
-            'id_absensi' => '1'
-        ]);
 
 
         // \App\Models\User::factory()->create([

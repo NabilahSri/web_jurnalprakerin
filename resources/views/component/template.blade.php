@@ -29,9 +29,11 @@
                 pointer-events: auto !important;
             }
         </style>
+        @yield('css')
     </head>
 
     <body class="hold-transition light-skin sidebar-mini theme-primary fixed">
+
 
         <div class="wrapper">
             <div id="loader"></div>
@@ -39,7 +41,7 @@
             <header class="main-header">
                 <div class="d-flex align-items-center logo-box justify-content-start">
                     <a href="#"
-                        class="waves-effect waves-light nav-link d-none d-md-inline-block mx-10 push-btn bg-transparent"
+                        class="waves-effect waves-light nav-link d-none d-md-inline-block mx-5 push-btn bg-transparent"
                         data-toggle="push-menu" role="button">
                         <span class="icon-Align-left"><span class="path1"></span><span class="path2"></span><span
                                 class="path3"></span></span>
@@ -48,8 +50,11 @@
                     <a href="index-2.html" class="logo">
                         <!-- logo-->
                         <div class="logo-lg">
-                            <span class="light-logo"><img src="../images/logo-dark-text.png" alt="logo"></span>
-                            <span class="dark-logo"><img src="../images/logo-light-text.png" alt="logo"></span>
+                            <span class="light-logo"><img
+                                    src="https://web.smk-ypc.sch.id/wp-content/uploads/2022/02/Logo-we.png"
+                                    alt="logo"></span>
+                            <span class="dark-logo"><img src="{{ asset('/images/logo-light-text.png') }}"
+                                    alt="logo"></span>
                         </div>
                     </a>
                 </div>
@@ -75,6 +80,7 @@
         <!-- ./wrapper -->
 
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <!-- Vendor JS -->
         <script src="{{ asset('asset/js/vendors.min.js') }}"></script>
         <script src="{{ asset('asset/js/pages/chat-popup.js') }}"></script>
@@ -107,6 +113,8 @@
             });
         </script>
         @yield('script')
+
+        @include('sweetalert::alert')
 
     </body>
 

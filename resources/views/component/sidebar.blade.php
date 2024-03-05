@@ -13,12 +13,6 @@
                         </a>
                     </li>
                     <li class="header">Management</li>
-                    <li class="menu-item {{ request()->is('akun*') ? 'active' : '' }}">
-                        <a href="/akun">
-                            <i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
-                            <span>Akun (Siswa & Pemonitor)</span>
-                        </a>
-                    </li>
                     <li class="menu-item {{ request()->is('kelas*') ? 'active' : '' }}">
                         <a href="/kelas">
                             <i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
@@ -71,12 +65,6 @@
                             <span>Kehadiran & Kegiatan</span>
                         </a>
                     </li>
-                    {{-- <li class="menu-item {{ request()->is('kegiatan*') ? 'active' : '' }}">
-                        <a href="/kegiatan">
-                            <i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
-                            <span>Daftar Kegiatan</span>
-                        </a>
-                    </li> --}}
                     <li class="header">Report</li>
                     <li class="treeview {{ request()->is('report*') ? 'active' : '' }}">
                         <a href="#">
@@ -112,8 +100,7 @@
                     </li>
                     <li class="menu-item {{ request()->is('absensi*') ? 'active' : '' }}">
                         <a href="/absensi">
-                            <i class="icon-Layout-4-blocks"><span class="path1"></span><span
-                                    class="path2"></span></i>
+                            <i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
                             <span>Kehadiran & Kegiatan</span>
                         </a>
                     </li>

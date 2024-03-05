@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('owner');
             $table->string('alamat');
+            $table->string('latitude');
+            $table->string('longitude');
             $table->string('telp');
             $table->string('email')->unique();
             $table->timestamps();

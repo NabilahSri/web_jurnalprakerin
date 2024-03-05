@@ -36,12 +36,6 @@ Route::middleware(['statuslogin'])->group(function(){
     //dashboard
     route::get('dashboard',[DashboardController::class,'show']);
 
-    //akun
-    route::get('akun',[AkunController::class,'show']);
-    route::post('akun/create',[AkunController::class,'create']);
-    route::get('akun/delete/{id}',[AkunController::class,'delete']);
-    route::post('akun/edit/{id}',[AkunController::class,'edit']);
-
     //industri
     route::get('industri',[IndustriController::class,'show']);
     route::post('industri/create',[IndustriController::class,'create']);
@@ -71,6 +65,7 @@ Route::middleware(['statuslogin'])->group(function(){
     route::post('users/siswa/create',[SiswaController::class,'create']);
     route::get('users/siswa/delete/{id}',[SiswaController::class,'delete']);
     route::post('users/siswa/edit/{id}',[SiswaController::class,'edit']);
+    Route::get('/getSiswa/{id_kelas}', [SiswaController::class, 'getSiswa']);
 
     //pemonitoring
     route::get('users/pemonitoring',[PemonitoringController::class,'show']);
@@ -87,7 +82,12 @@ Route::middleware(['statuslogin'])->group(function(){
     //absensi
     route::get('absensi',[AbsensiController::class,'show']);
 
-    //laporan
+    //laporanKehadiran
     route::get('report/kehadiran',[LaporanController::class,'show']);
+    route::get('report/kehadiran/action',[LaporanController::class,'actionKehadiran']);
+
+
+    //laporanKegiatan
     route::get('report/kegiatan',[LaporanController::class,'showKegiatan']);
+    route::get('report/kegiatan/action',[LaporanController::class,'actionKegiatan']);
 });
