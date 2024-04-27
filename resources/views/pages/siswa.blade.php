@@ -41,7 +41,7 @@
                                         <th>No Telepon</th>
                                         <th>alamat</th>
                                         <th>Foto</th>
-                                        <th class="text-center">Aksi</th>
+                                        <th class="text-center" style="width: 100px">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>

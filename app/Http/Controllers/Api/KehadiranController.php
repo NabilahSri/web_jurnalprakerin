@@ -8,7 +8,10 @@ use App\Models\Industri;
 use App\Models\Kegiatan;
 use App\Models\Monitoring;
 use App\Models\Siswa;
+use App\Models\Token;
+use App\Models\TokenKeluar;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 // use Carbon\Carbon;
@@ -61,24 +64,44 @@ class KehadiranController extends Controller
             ],401);
         }else{
 
-            if ($distances > 500) {
-                return response()->json([
-                    'message' => 'Anda berada di luar zona kehadiran',
-                    'latitude' => $point2['latitude'],
-                    'longitude' => $point2['longitude'],
-                    'distances' => $distances,
-                ], 403);
-            }else{
+            $mode = $request->mode;
+            $tokenMasuk = Token::orderBy('created_at','desc')->first();
+            $currentTime = Carbon::now('Asia/Jakarta');
+
+            if ($mode == "Lokasi") {
+                if ($distances > 500) {
+                    return response()->json([
+                        'message' => 'Anda berada di luar zona kehadiran',
+                        'latitude' => $point2['latitude'],
+                        'longitude' => $point2['longitude'],
+                        'distances' => $distances,
+                    ], 403);
+                }
+            }
+
+            if ($mode == "Token") {
+                if ($request->token_masuk != $tokenMasuk->token_masuk) {
+                    return response()->json([
+                        'message' => 'Token tidak sesuai!'
+                    ], 401);
+                }
+
+                if ($currentTime > $tokenMasuk->kadaluarsa_pada) {
+                    return response()->json([
+                        'message' => 'Token expired!'
+                    ], 404);
+                }
+            }
 
                 $absensiMasuk = Absensi::where('id_siswa', $id_siswa)
                     ->where('tanggal', $request->tanggal)
                     ->first();
 
-                if ($absensiMasuk && $absensiMasuk->jam_masuk) {
-                    return response()->json([
-                        'message' => 'Anda sudah melakukan absensi masuk hari ini'
-                    ], 400);
-                }
+                // if ($absensiMasuk && $absensiMasuk->jam_masuk) {
+                //     return response()->json([
+                //         'message' => 'Anda sudah melakukan absensi masuk hari ini'
+                //     ], 400);
+                // }
 
                 $validator = Validator::make($request->all(), [
                     'tanggal' => 'required',
@@ -107,7 +130,7 @@ class KehadiranController extends Controller
                         'message' => "Upload kehadiran gagal"
                     ], 409);
                 }
-            }
+
         }
     }
 
@@ -143,14 +166,35 @@ class KehadiranController extends Controller
                 'message' => 'Unauthorization User'
             ], 401);
         }else{
-            if ($distances > 500) {
-                return response()->json([
-                    'message' => 'Anda berada di luar zona kehadiran',
-                    'latitude' => $point2['latitude'],
-                    'longitude' => $point2['longitude'],
-                    'distances' => $distances,
-                ], 403);
-            }else{
+            $mode = $request->mode;
+            $tokenMasuk = TokenKeluar::orderBy('created_at','desc')->first();
+            $currentTime = Carbon::now('Asia/Jakarta');
+
+            if ($mode == "Lokasi") {
+                if ($distances > 500) {
+                    return response()->json([
+                        'message' => 'Anda berada di luar zona kehadiran',
+                        'latitude' => $point2['latitude'],
+                        'longitude' => $point2['longitude'],
+                        'distances' => $distances,
+                    ], 403);
+                }
+            }
+
+            if ($mode == "Token") {
+                if ($request->token_masuk != $tokenMasuk->token_masuk) {
+                    return response()->json([
+                        'message' => 'Token tidak sesuai!'
+                    ], 401);
+                }
+
+                if ($currentTime > $tokenMasuk->kadaluarsa_pada) {
+                    return response()->json([
+                        'message' => 'Token expired!'
+                    ], 404);
+                }
+            }
+
                 $validator = Validator::make($request->all(), [
                     'jam_pulang' => 'required',
                 ]);
@@ -181,7 +225,6 @@ class KehadiranController extends Controller
                         'message' => "Absen pulang gagal di update"
                     ], 409);
                 }
-            }
         }
 
     }
@@ -206,16 +249,28 @@ class KehadiranController extends Controller
             $total_menit = $kegiatan->sum('durasi');
             $total_jam = floor($total_menit / 60);
             $remaining_menit = $total_menit % 60;
-            return response()->json([
-                'siswa'=>$siswa,
-                'hadir'=>$Kehadiran_hadir,
-                'izin'=>$Kehadiran_izin,
-                'sakit'=>$Kehadiran_sakit,
-                'total_jam_kerja' => [
-                    'jam' => $total_jam,
-                    'menit' => $remaining_menit,
-                ],
-            ],200);
+            if ($siswa) {
+                $siswaWithFoto =[
+                    'name' => $siswa->name,
+                    'kelas' => $siswa->kelas->kelas,
+                    'foto' => $siswa->foto ? asset('storage/' . $siswa->foto) : null,
+                ];
+                return response()->json([
+                    'siswa'=>$siswaWithFoto,
+                    'hadir'=>$Kehadiran_hadir,
+                    'izin'=>$Kehadiran_izin,
+                    'sakit'=>$Kehadiran_sakit,
+                    'total_jam_kerja' => [
+                        'jam' => $total_jam,
+                        'menit' => $remaining_menit,
+                    ],
+                ],200);
+            }else{
+                return response()->json([
+                    'message' => 'User not found'
+                ],404);
+            }
+
         }
     }
 

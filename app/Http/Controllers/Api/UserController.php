@@ -70,7 +70,7 @@ class UserController extends Controller
                     'telp' => $siswa->telp,
                     'alamat' => $siswa->alamat,
                     'kelas' => $siswa->kelas->kelas,
-                    'foto' => $siswa->foto ? asset('storage/foto_siswa/' . $siswa->foto) : null,
+                    'foto' => $siswa->foto ? asset('storage/' . $siswa->foto) : null,
                 ];
                 return response()->json([
                     'success' => true,
@@ -125,6 +125,56 @@ class UserController extends Controller
                         'message' => 'Failed to update user'
                     ], 500);
                 }
+            }
+        }
+    }
+
+    public function editProfil(Request $request,$id){
+        $token = User::where([
+            'login_token' => $request->token
+        ])->first();
+        if ($request->token == null || !$token) {
+            return response()->json([
+                'message' => 'Unauthorization User'
+            ],401);
+        } else{
+            $validator = Validator::make($request->all(),[
+                'name' => 'required',
+                'email' => 'required',
+                'telp' => 'required',
+                'alamat' => 'required',
+            ]);
+            if ($validator->fails()) {
+                return response()->json([
+                    $validator->errors()
+                ],422);
+            }
+            $siswa = Siswa::where('id',$id)->first();
+            if ($request->hasFile('foto')) {
+                $filename = $request->file('foto')->storeAs('foto_siswa', $request->name . '.' . $request->file('foto')->getClientOriginalExtension());
+                $photopath = $filename;
+            }else{
+                $photopath = $siswa->foto;
+            }
+
+            $siswa -> name = $request->name;
+            $siswa -> email = $request->email;
+            $siswa -> telp = $request->telp;
+            $siswa -> alamat = $request->alamat;
+            $siswa -> foto = $photopath;
+            $siswa->save();
+
+            if ($siswa) {
+                $siswas = Siswa::where('id_user',$id)->first();
+                return response()->json([
+                    'success' => true,
+                    'siswa' => $siswas,
+                    ], 201);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => "Ubah data siswa gagal"
+                ], 409);
             }
         }
     }

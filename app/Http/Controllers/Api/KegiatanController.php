@@ -24,7 +24,7 @@ class KegiatanController extends Controller
             $id_user = $user->id;
             $siswa = Siswa::where('id_user',$id_user)->first();
             $id_siswa = $siswa->id;
-            $kegiatan = Kegiatan::where('id_siswa',$id_siswa)->get();
+            $kegiatan = Kegiatan::where('id_siswa',$id_siswa)->orderBy('created_at','desc')->get();
             return response()->json([
                 'kegiatan' => $kegiatan
             ],200);
@@ -116,18 +116,20 @@ class KegiatanController extends Controller
                     $validator->errors()
                 ],422);
             }
-            $kegiatan = Kegiatan::where('id',$id)->update([
-                'deskripsi' => $request->deskripsi,
-                'durasi' => $request->durasi,
-                'id_absensi' => $request->id_absensi,
-                'id_siswa' => $request->id_siswa,
-                'id_kelas' => $request->id_kelas,
-            ]);
+            $kegiatan = Kegiatan::where('id',$id)->first();
             if ($request->hasFile('foto')) {
                 $filename = $request->file('foto')->storeAs('foto_kegiatan', $request->id_absensi . '_' . $request->id_siswa . '.' . $request->file('foto')->getClientOriginalExtension());
-                $kegiatan->foto = $filename;
-                $kegiatan->save();
+                $photopath = $filename;
+            }else{
+                $photopath = $kegiatan->foto;
             }
+            $kegiatan->deskripsi = $request->deskripsi;
+            $kegiatan->durasi = $request->durasi;
+            $kegiatan->id_absensi = $request->id_absensi;
+            $kegiatan->id_siswa = $request->id_siswa;
+            $kegiatan->id_kelas = $request->id_kelas;
+            $kegiatan->foto = $photopath;
+            $kegiatan->save();
             if ($kegiatan) {
                 $kegiatans = Kegiatan::where('id',$id)->first();
                 return response()->json([

@@ -35,6 +35,7 @@
                                         <th>No</th>
                                         <th>Nama Industri</th>
                                         <th>Owner</th>
+                                        <th>Username</th>
                                         <th>Alamat</th>
                                         <th>Latitude</th>
                                         <th>Longitude</th>
@@ -49,6 +50,7 @@
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->owner }}</td>
+                                            <td>{{ $item->user->username }}</td>
                                             <td>{{ $item->alamat }}</td>
                                             <td>{{ $item->latitude }}</td>
                                             <td>{{ $item->longitude }}</td>
@@ -120,6 +122,26 @@
                                                                             placeholder="Masukan nama owner"
                                                                             class="form-control"
                                                                             value="{{ $item->owner }}" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for=""
+                                                                            class="form-label">Username</label>
+                                                                        <input type="text" name="username"
+                                                                            id="" placeholder="Masukan username"
+                                                                            class="form-control"
+                                                                            value="{{ $item->user->username }}" required>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for=""
+                                                                            class="form-label">Password</label>
+                                                                        <input type="text" name="password"
+                                                                            id=""
+                                                                            placeholder="Masukan password jika ingin diubah"
+                                                                            class="form-control">
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -207,7 +229,7 @@
                         @csrf
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="" class="form-label">Nama
                                             Industri</label>
@@ -220,6 +242,13 @@
                                         <label for="" class="form-label">Owner</label>
                                         <input type="text" name="owner" id=""
                                             placeholder="Masukan nama owner" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="" class="form-label">Username</label>
+                                        <input type="text" name="username" id=""
+                                            placeholder="Masukan username" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">

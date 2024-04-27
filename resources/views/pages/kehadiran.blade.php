@@ -144,8 +144,8 @@
                                             <td>{{ $key + 1 }}</td>
                                             <td>{{ $data->deskripsi }}</td>
                                             <td>
-                                                @if ($item->foto)
-                                                    <img src="{{ asset('storage/' . $item->foto) }}" alt="foto"
+                                                @if ($data->foto)
+                                                    <img src="{{ asset('storage/' . $data->foto) }}" alt="foto"
                                                         style="border-radius: 50%; width: 100px; height: 100px;">
                                                 @else
                                                     <span class="text-danger">Tidak ada foto kegiatan</span>

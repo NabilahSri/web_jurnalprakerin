@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/auth/login',[UserController::class,  'login']);
 Route::get('/auth/show/{id}',[UserController::class,  'showId']);
 Route::post('/auth/edit/{id}',[UserController::class,  'edit']);
+Route::post('/auth/editProfil/{id}',[UserController::class,  'editProfil']);
 Route::get('/auth/logout',[UserController::class,  'logout']);
 
 //BannerController
@@ -35,12 +36,12 @@ Route::get('/banner/show',[BannerController::class,  'show']);
 Route::get('/kehadiran/dashboard/{id}',[KehadiranController::class,  'dashboard']);
 Route::get('/kehadiran/show/{id}',[KehadiranController::class,  'show']);
 Route::post('/kehadiran/absensi',[KehadiranController::class,  'absensi']);
-Route::get('/kehadiran/absensiValidasi',[KehadiranController::class,  'absensiValidasi']);
 Route::post('/kehadiran/absensi/pulang',[KehadiranController::class,  'absensiPulang']);
 
 //FormulirController
 Route::post('/formulir/add',[FormulirController::class,'add']);
 Route::get('/formulir/show/{id_siswa}',[FormulirController::class,'show']);
+// Route::post('/formulir/filter',[FormulirController::class,'filter']);
 Route::get('/formulir/validasiAbsen',[FormulirController::class,'validasiAbsen']);
 
 //KegiatanController
@@ -49,5 +50,7 @@ Route::get('/kegiatan/showIdKegiatan/{id}',[KegiatanController::class,'showIdKeg
 Route::post('/kegiatan/add',[KegiatanController::class,'add']);
 Route::post('/kegiatan/edit/{id}',[KegiatanController::class,'edit']);
 Route::get('/kegiatan/delete/{id}',[KegiatanController::class,'delete']);
+
+
 
 

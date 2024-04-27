@@ -21,14 +21,41 @@ class FormulirController extends Controller
                 'message' => 'Unauthorization User'
             ],401);
         }else{
-            $absensi = Absensi::where('id_siswa', $id_siswa)->where(function ($query) {
-                $query->where('status', 'sakit')->orWhere('status', 'izin');
-            })->get();
+            $absensi = Absensi::where('id_siswa', $id_siswa)->get();
             return response()->json([
                 'absensi' => $absensi
             ],200);
         }
     }
+
+    // public function filter(Request $request){
+    //     $user = User::where([
+    //         'login_token' => $request->token
+    //     ])->first();
+
+    //     if ($request->token ==null || !$user) {
+    //         return response()->json([
+    //             'message' => 'Unauthorization User'
+    //         ],401);
+    //     }
+
+    //     $validator = Validator::make($request->all(), [
+    //         'dari_tanggal' => 'required',
+    //         'sampai_tanggal' => 'required',
+    //     ]);
+
+    //     if ($validator->fails()) {
+    //         return response()->json($validator->errors(), 422);
+    //     }
+
+    //     $absensi = Absensi::where('id_siswa', $user->siswa->id)
+    //         ->whereBetween('tanggal', [$request->dari_tanggal, $request->sampai_tanggal])
+    //         ->get();
+
+    //     return response()->json([
+    //         'absensi' => $absensi
+    //     ], 200);
+    // }
 
     public function add(Request $request){
         $user = User::where([
@@ -88,7 +115,7 @@ class FormulirController extends Controller
             $siswa = Siswa::where('id_user',$id_user)->first();
             $id_siswa = $siswa->id;
             $absensi = Absensi::where('id_siswa', $id_siswa)
-                    ->where('tanggal', Carbon::today())
+                    ->where('tanggal', Carbon::today('Asia/Jakarta'))
                     ->first();
             if (!$absensi) {
                 return response()->json([

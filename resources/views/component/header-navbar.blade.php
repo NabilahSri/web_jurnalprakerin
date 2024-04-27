@@ -30,8 +30,10 @@
                 <ul class="dropdown-menu animated flipInX">
                     <li class="user-body">
                         {{-- <a class="dropdown-item" href="#"><i class="ti-user text-muted me-2"></i> Profile</a> --}}
-                        {{-- <a class="dropdown-item" href="#"><i class="ti-settings text-muted me-2"></i>
-                            Settings</a> --}}
+                        @if (auth()->user()->level != 'admin')
+                            <a class="dropdown-item" href="#"><i class="ti-settings text-muted me-2"></i>
+                                Settings</a>
+                        @endif
                         {{-- <div class="dropdown-divider"></div> --}}
                         <a class="dropdown-item" href="/logout"><i class="ti-lock text-muted me-2"></i> Logout</a>
                     </li>

@@ -18,7 +18,7 @@ class AbsensiController extends Controller
         if (Auth::user()->level == 'admin') {
             $data['kelas'] = Kelas::all();
             $data['siswa'] = Siswa::with('kelas')->get();
-            $data['absensi'] = Absensi::with('siswa')->get();
+            $data['absensi'] = Absensi::with('siswa')->orderBy('created_at','desc')->get();
         }else{
             $data['user'] = User::where('id', Auth::user()->id)->first();
             $userId = $data['user']->id;
@@ -38,6 +38,7 @@ class AbsensiController extends Controller
                     ->whereHas('siswa.monitoring', function($query) use ($idguru) {
                         $query->where('id_guru', $idguru);
                     })
+                    ->orderBy('created_at','desc')
                     ->get();
 
         }

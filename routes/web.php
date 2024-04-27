@@ -12,6 +12,9 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\PemonitoringController;
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\TokenController;
+use App\Http\Controllers\TokenKeluar;
+use App\Http\Controllers\TokenKeluarController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,60 +37,70 @@ Route::get('logout',[LoginController::class,'logout']);
 
 Route::middleware(['statuslogin'])->group(function(){
     //dashboard
-    route::get('dashboard',[DashboardController::class,'show']);
+    Route::get('dashboard',[DashboardController::class,'show']);
 
     //industri
-    route::get('industri',[IndustriController::class,'show']);
-    route::post('industri/create',[IndustriController::class,'create']);
-    route::get('industri/delete/{id}',[IndustriController::class,'delete']);
-    route::post('industri/edit/{id}',[IndustriController::class,'edit']);
+    Route::get('industri',[IndustriController::class,'show']);
+    Route::post('industri/create',[IndustriController::class,'create']);
+    Route::get('industri/delete/{id}',[IndustriController::class,'delete']);
+    Route::post('industri/edit/{id}',[IndustriController::class,'edit']);
 
     //industri
-    route::get('monitoring',[MonitoringController::class,'show']);
-    route::post('monitoring/create',[MonitoringController::class,'create']);
-    route::get('monitoring/delete/{id}',[MonitoringController::class,'delete']);
-    route::post('monitoring/edit/{id}',[MonitoringController::class,'edit']);
+    Route::get('monitoring',[MonitoringController::class,'show']);
+    Route::post('monitoring/create',[MonitoringController::class,'create']);
+    Route::get('monitoring/delete/{id}',[MonitoringController::class,'delete']);
+    Route::post('monitoring/edit/{id}',[MonitoringController::class,'edit']);
 
     //kelas
-    route::get('kelas',[KelasController::class,'show']);
-    route::post('kelas/create',[KelasController::class,'create']);
-    route::get('kelas/delete/{id}',[KelasController::class,'delete']);
-    route::post('kelas/edit/{id}',[KelasController::class,'edit']);
+    Route::get('kelas',[KelasController::class,'show']);
+    Route::post('kelas/create',[KelasController::class,'create']);
+    Route::get('kelas/delete/{id}',[KelasController::class,'delete']);
+    Route::post('kelas/edit/{id}',[KelasController::class,'edit']);
 
     //administrator
-    route::get('users/administrator',[AdministratorController::class,'show']);
-    route::post('users/administrator/create',[AdministratorController::class,'create']);
-    route::get('users/administrator/delete/{id}',[AdministratorController::class,'delete']);
-    route::post('users/administrator/edit/{id}',[AdministratorController::class,'edit']);
+    Route::get('users/administrator',[AdministratorController::class,'show']);
+    Route::post('users/administrator/create',[AdministratorController::class,'create']);
+    Route::get('users/administrator/delete/{id}',[AdministratorController::class,'delete']);
+    Route::post('users/administrator/edit/{id}',[AdministratorController::class,'edit']);
 
     //siswa
-    route::get('users/siswa',[SiswaController::class,'show']);
-    route::post('users/siswa/create',[SiswaController::class,'create']);
-    route::get('users/siswa/delete/{id}',[SiswaController::class,'delete']);
-    route::post('users/siswa/edit/{id}',[SiswaController::class,'edit']);
+    Route::get('users/siswa',[SiswaController::class,'show']);
+    Route::post('users/siswa/create',[SiswaController::class,'create']);
+    Route::get('users/siswa/delete/{id}',[SiswaController::class,'delete']);
+    Route::post('users/siswa/edit/{id}',[SiswaController::class,'edit']);
     Route::get('/getSiswa/{id_kelas}', [SiswaController::class, 'getSiswa']);
 
     //pemonitoring
-    route::get('users/pemonitoring',[PemonitoringController::class,'show']);
-    route::post('users/pemonitoring/create',[PemonitoringController::class,'create']);
-    route::get('users/pemonitoring/delete/{id}',[PemonitoringController::class,'delete']);
-    route::post('users/pemonitoring/edit/{id}',[PemonitoringController::class,'edit']);
+    Route::get('users/pemonitoring',[PemonitoringController::class,'show']);
+    Route::post('users/pemonitoring/create',[PemonitoringController::class,'create']);
+    Route::get('users/pemonitoring/delete/{id}',[PemonitoringController::class,'delete']);
+    Route::post('users/pemonitoring/edit/{id}',[PemonitoringController::class,'edit']);
 
     //Banner
-    route::get('banner',[BannerController::class,'show']);
-    route::post('banner/create',[BannerController::class,'create']);
-    route::get('banner/delete/{id}',[BannerController::class,'delete']);
-    route::post('banner/edit/{id}',[BannerController::class,'edit']);
+    Route::get('banner',[BannerController::class,'show']);
+    Route::post('banner/create',[BannerController::class,'create']);
+    Route::get('banner/delete/{id}',[BannerController::class,'delete']);
+    Route::post('banner/edit/{id}',[BannerController::class,'edit']);
 
     //absensi
-    route::get('absensi',[AbsensiController::class,'show']);
+    Route::get('absensi',[AbsensiController::class,'show']);
 
     //laporanKehadiran
-    route::get('report/kehadiran',[LaporanController::class,'show']);
-    route::get('report/kehadiran/action',[LaporanController::class,'actionKehadiran']);
+    Route::get('report/kehadiran',[LaporanController::class,'show']);
+    Route::get('report/kehadiran/action',[LaporanController::class,'actionKehadiran']);
 
 
     //laporanKegiatan
-    route::get('report/kegiatan',[LaporanController::class,'showKegiatan']);
-    route::get('report/kegiatan/action',[LaporanController::class,'actionKegiatan']);
+    Route::get('report/kegiatan',[LaporanController::class,'showKegiatan']);
+    Route::get('report/kegiatan/action',[LaporanController::class,'actionKegiatan']);
+
+    //tokenMasuk
+    Route::get('token/tokenMasuk',[TokenController::class,'showToken']);
+    Route::post('/save-token-masuk', [TokenController::class, 'saveToken']);
+
+    //tokenKeluar
+    Route::get('token/tokenKeluar',[TokenKeluarController::class,'showToken']);
+    Route::post('/save-token', [TokenKeluarController::class, 'saveToken']);
+
+
 });

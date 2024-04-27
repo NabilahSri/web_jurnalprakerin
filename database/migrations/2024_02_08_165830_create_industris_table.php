@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('longitude');
             $table->string('telp');
             $table->string('email')->unique();
+            $table->unsignedBigInteger('id_user');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('no action')->onUpdate('no action');
             $table->timestamps();
         });
     }

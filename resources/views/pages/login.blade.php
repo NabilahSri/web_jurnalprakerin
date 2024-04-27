@@ -24,7 +24,15 @@
 
     </head>
 
-    <body class="hold-transition theme-primary bg-img" style="background-image: url(../images/auth-bg/bg-1.jpg)">
+    <style>
+        body {
+            background-image: url(https://sewaalatkamera.com/sewa/images/1554/1.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
+
+    <body class="hold-transition theme-primary bg-img">
 
         <div class="container h-p100">
             <div class="row align-items-center justify-content-md-center h-p100">

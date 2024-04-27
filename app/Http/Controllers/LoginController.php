@@ -11,7 +11,7 @@ class LoginController extends Controller
         $credential = $request->only('username','password');
 
         if (Auth::attempt($credential)) {
-            if (auth()->user()->level == 'admin' || auth()->user()->level == 'pemonitor') {
+            if (auth()->user()->level == 'admin' || auth()->user()->level == 'pemonitor' || auth()->user()->level == 'industri') {
                 return redirect('/dashboard')->with('success','Anda berhasil melakukan login!');
             }else{
                  return back()->with('error', 'Anda tidak memiliki hak akses!');

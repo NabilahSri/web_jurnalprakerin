@@ -24,9 +24,15 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasOne(Guru::class, 'id_user');
     }
 
-     public function siswa(){
+    public function siswa(){
         return $this->hasOne(Siswa::class, 'id_user');
     }
+
+    public function industri(){
+        return $this->hasOne(Industri::class, 'id_user');
+    }
+
+
 
     /**
      * The attributes that should be hidden for serialization.

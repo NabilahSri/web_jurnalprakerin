@@ -21,7 +21,7 @@
                     </li>
                     <li class="treeview {{ request()->is('users*') ? 'active' : '' }}">
                         <a href="#">
-                            <i class="icon-Write"><span class="path1"></span><span class="path2"></span></i>
+                            <i class="icon-User"><span class="path1"></span><span class="path2"></span></i>
                             <span>Users</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-right pull-right"></i>
@@ -38,13 +38,11 @@
                                     href="/users/pemonitoring"><i class="icon-Commit"><span class="path1"></span><span
                                             class="path2"></span></i>Guru/Pemonitor</a>
                             </li>
+                            <li class="menu-item {{ request()->is('industri*') ? 'active' : '' }}"><a
+                                    href="/industri"><i class="icon-Commit"><span class="path1"></span><span
+                                            class="path2"></span></i>Industri</a>
+                            </li>
                         </ul>
-                    </li>
-                    <li class="menu-item {{ request()->is('industri*') ? 'active' : '' }}">
-                        <a href="/industri">
-                            <i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
-                            <span>Industri</span>
-                        </a>
                     </li>
                     <li class="menu-item {{ request()->is('monitoring*') ? 'active' : '' }}">
                         <a href="/monitoring">
@@ -83,7 +81,7 @@
                                             class="path2"></span></i>Kegiatan</a></li>
                         </ul>
                     </li>
-                @else
+                @elseif (auth()->user()->level == 'pemonitor')
                     <li class="header">Dashboard</li>
                     <li class="menu-item {{ request()->is('dashboard*') ? 'active' : '' }}">
                         <a href="/dashboard">
@@ -120,6 +118,35 @@
                             <li class="menu-item {{ request()->is('report/kegiatan') ? 'active' : '' }}"><a
                                     href="/report/kegiatan"><i class="icon-Commit"><span class="path1"></span><span
                                             class="path2"></span></i>Kegiatan</a></li>
+                        </ul>
+                    </li>
+                @else
+                    <li class="header">Dashboard</li>
+                    <li class="menu-item {{ request()->is('dashboard*') ? 'active' : '' }}">
+                        <a href="/dashboard">
+                            <i class="icon-Layout-4-blocks"><span class="path1"></span><span
+                                    class="path2"></span></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="header">Menu</li>
+                    <li class="treeview {{ request()->is('token*') ? 'active' : '' }}">
+                        <a href="#">
+                            <i class="icon-Write"><span class="path1"></span><span class="path2"></span></i>
+                            <span>Token</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-right pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="menu-item {{ request()->is('token/tokenMasuk') ? 'active' : '' }}"><a
+                                    href="/token/tokenMasuk"><i class="icon-Commit"><span class="path1"></span><span
+                                            class="path2"></span></i>Token Masuk</a>
+                            </li>
+                            <li class="menu-item {{ request()->is('token/tokenKeluar') ? 'active' : '' }}"><a
+                                    href="/token/tokenKeluar"><i class="icon-Commit"><span
+                                            class="path1"></span><span class="path2"></span></i>Token keluar</a>
+                            </li>
                         </ul>
                     </li>
                 @endif
