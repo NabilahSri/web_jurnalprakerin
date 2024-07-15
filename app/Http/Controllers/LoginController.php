@@ -19,10 +19,12 @@ class LoginController extends Controller
         }else{
             return back()->with('error', 'Username atau password salah!');
         }
+
     }
 
     public function logout(){
         Auth::logout();
         return redirect('/')->with('success','Anda berhasil melakukan log out!');
     }
+    
 }

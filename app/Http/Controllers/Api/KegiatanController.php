@@ -107,9 +107,6 @@ class KegiatanController extends Controller
             $validator = Validator::make($request->all(),[
                 'deskripsi' => 'required',
                 'durasi' => 'required',
-                'id_absensi' => 'required',
-                'id_siswa' => 'required',
-                'id_kelas' => 'required',
             ]);
             if ($validator->fails()) {
                 return response()->json([
@@ -125,9 +122,6 @@ class KegiatanController extends Controller
             }
             $kegiatan->deskripsi = $request->deskripsi;
             $kegiatan->durasi = $request->durasi;
-            $kegiatan->id_absensi = $request->id_absensi;
-            $kegiatan->id_siswa = $request->id_siswa;
-            $kegiatan->id_kelas = $request->id_kelas;
             $kegiatan->foto = $photopath;
             $kegiatan->save();
             if ($kegiatan) {

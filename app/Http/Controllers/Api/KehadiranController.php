@@ -14,7 +14,6 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-// use Carbon\Carbon;
 
 
 function getDistanceBetweenPoints($lat1, $lon1, $lat2, $lon2) {
@@ -69,7 +68,7 @@ class KehadiranController extends Controller
             $currentTime = Carbon::now('Asia/Jakarta');
 
             if ($mode == "Lokasi") {
-                if ($distances > 500) {
+                if ($distances > 1000) {
                     return response()->json([
                         'message' => 'Anda berada di luar zona kehadiran',
                         'latitude' => $point2['latitude'],
@@ -97,11 +96,11 @@ class KehadiranController extends Controller
                     ->where('tanggal', $request->tanggal)
                     ->first();
 
-                // if ($absensiMasuk && $absensiMasuk->jam_masuk) {
-                //     return response()->json([
-                //         'message' => 'Anda sudah melakukan absensi masuk hari ini'
-                //     ], 400);
-                // }
+                if ($absensiMasuk && $absensiMasuk->jam_masuk) {
+                    return response()->json([
+                        'message' => 'Anda sudah melakukan absensi masuk hari ini'
+                    ], 400);
+                }
 
                 $validator = Validator::make($request->all(), [
                     'tanggal' => 'required',
@@ -171,7 +170,7 @@ class KehadiranController extends Controller
             $currentTime = Carbon::now('Asia/Jakarta');
 
             if ($mode == "Lokasi") {
-                if ($distances > 500) {
+                if ($distances > 1000) {
                     return response()->json([
                         'message' => 'Anda berada di luar zona kehadiran',
                         'latitude' => $point2['latitude'],
@@ -194,7 +193,6 @@ class KehadiranController extends Controller
                     ], 404);
                 }
             }
-
                 $validator = Validator::make($request->all(), [
                     'jam_pulang' => 'required',
                 ]);
@@ -202,6 +200,7 @@ class KehadiranController extends Controller
                     return response()->json($validator->errors(), 422);
                 }
                 $absensi = Absensi::where('id_siswa', $id_siswa)
+
                     ->where('tanggal', $request->tanggal)
                     ->first();
                 if (!$absensi) {
@@ -289,6 +288,7 @@ class KehadiranController extends Controller
             $id_siswa = $siswa->id;
             $kehadiran = Absensi::where('id_siswa',$id_siswa)->where('status','hadir')->orderBy('tanggal','desc')->get();
             return response()->json([
+                'kehadiran' => $kehadiran,
                 'kehadiran' => $kehadiran
             ],200);
         }

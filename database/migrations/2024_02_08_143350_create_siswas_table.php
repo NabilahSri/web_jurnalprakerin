@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nisn')->unique();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('telp');
+            $table->string('telp')->nullable();
             $table->string('alamat');
             $table->string('foto')->nullable();
             $table->unsignedBigInteger('id_user');

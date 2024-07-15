@@ -9,9 +9,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="icon" href="https://eduadmin-template.multipurposethemes.com/bs5/images/favicon.ico">
+        <link rel="icon" href="https://web.smk-ypc.sch.id/wp-content/uploads/2023/12/smk-ypc-png-300x263.png">
 
-        <title>Jurnal Parakerin</title>
+        <title>Jurnal Prakerin | SMK YPC Tasikmalaya</title>
 
         <!-- Vendors Style-->
         <link rel="stylesheet" href="{{ asset('asset/css/vendors_css.css') }}">
